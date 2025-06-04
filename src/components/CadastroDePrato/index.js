@@ -20,7 +20,7 @@ function CadastroDePrato() {
     const prato = { ...form };
 
     try {
-      const response = await fetch("https://restaurante-q52p.onrender.com/usuarios", {
+      const response = await fetch("https://restaurante-q52p.onrender.com/pratos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
