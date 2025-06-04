@@ -1,124 +1,61 @@
 package com.example.aula.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-// Removidas as importações de @Email e @Size, pois não são mais necessárias para email e senha
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
-public class Usuario {
+public class Prato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome é obrigatório.")
-    private String nome;
+    @NotBlank(message = "Nome do prato é obrigatório.")
+    private String nomePrato;
 
-    // Atributos email e senha foram removidos
+    @NotBlank(message = "Descrição é obrigatória.")
+    private String descricao;
 
-    private String sexo; // Pode ser "Masculino", "Feminino", "Outro" ou um Enum
+    @NotNull(message = "Preço é obrigatório.")
+    @Positive(message = "Preço deve ser positivo.")
+    private Double preco;
 
-    @NotNull(message = "Idade é obrigatória.")
-    @Min(value = 0, message = "Idade não pode ser negativa.")
-    private Integer idade;
+    private String categoria;
+    private String disponibilidade;
 
-    @NotNull(message = "Altura é obrigatória.")
-    @Min(value = 0, message = "Altura deve ser um valor positivo.")
-    private Double altura; // em metros, ex: 1.75
+    @NotBlank(message = "URL da imagem é obrigatória.")
+    private String urlImagem;
 
-    @NotNull(message = "Peso é obrigatório.")
-    @Min(value = 0, message = "Peso deve ser um valor positivo.")
-    private Double peso; // em kg, ex: 70.5
+    // Construtores
+    public Prato() {}
 
-    private String posicao; // Ex: "Atacante", "Defensor", etc.
-
-    @NotNull(message = "Número da camisa é obrigatório.")
-    @Min(value = 0, message = "Número da camisa não pode ser negativo.")
-    private Integer numeroCamisa;
-
-    public Usuario() {
-    }
-
-    // Construtor atualizado sem email e senha
-    public Usuario(Long id, String nome, String sexo, Integer idade, Double altura, Double peso, String posicao, Integer numeroCamisa) {
-        this.id = id;
-        this.nome = nome;
-        this.sexo = sexo;
-        this.idade = idade;
-        this.altura = altura;
-        this.peso = peso;
-        this.posicao = posicao;
-        this.numeroCamisa = numeroCamisa;
+    public Prato(String nomePrato, String descricao, Double preco, String categoria, String disponibilidade, String urlImagem) {
+        this.nomePrato = nomePrato;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.disponibilidade = disponibilidade;
+        this.urlImagem = urlImagem;
     }
 
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNomePrato() { return nomePrato; }
+    public void setNomePrato(String nomePrato) { this.nomePrato = nomePrato; }
 
-    public @NotBlank(message = "Nome é obrigatório.") String getNome() {
-        return nome;
-    }
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public void setNome(@NotBlank(message = "Nome é obrigatório.") String nome) {
-        this.nome = nome;
-    }
+    public Double getPreco() { return preco; }
+    public void setPreco(Double preco) { this.preco = preco; }
 
-    // Getters e Setters para email e senha foram removidos
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
 
-    public String getSexo() {
-        return sexo;
-    }
+    public String getDisponibilidade() { return disponibilidade; }
+    public void setDisponibilidade(String disponibilidade) { this.disponibilidade = disponibilidade; }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public @NotNull(message = "Idade é obrigatória.") @Min(value = 0, message = "Idade não pode ser negativa.") Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(@NotNull(message = "Idade é obrigatória.") @Min(value = 0, message = "Idade não pode ser negativa.") Integer idade) {
-        this.idade = idade;
-    }
-
-    public @NotNull(message = "Altura é obrigatória.") @Min(value = 0, message = "Altura deve ser um valor positivo.") Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(@NotNull(message = "Altura é obrigatória.") @Min(value = 0, message = "Altura deve ser um valor positivo.") Double altura) {
-        this.altura = altura;
-    }
-
-    public @NotNull(message = "Peso é obrigatório.") @Min(value = 0, message = "Peso deve ser um valor positivo.") Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(@NotNull(message = "Peso é obrigatório.") @Min(value = 0, message = "Peso deve ser um valor positivo.") Double peso) {
-        this.peso = peso;
-    }
-
-    public String getPosicao() {
-        return posicao;
-    }
-
-    public void setPosicao(String posicao) {
-        this.posicao = posicao;
-    }
-
-    public @NotNull(message = "Número da camisa é obrigatório.") @Min(value = 0, message = "Número da camisa não pode ser negativo.") Integer getNumeroCamisa() {
-        return numeroCamisa;
-    }
-
-    public void setNumeroCamisa(@NotNull(message = "Número da camisa é obrigatório.") @Min(value = 0, message = "Número da camisa não pode ser negativo.") Integer numeroCamisa) {
-        this.numeroCamisa = numeroCamisa;
-    }
+    public String getUrlImagem() { return urlImagem; }
+    public void setUrlImagem(String urlImagem) { this.urlImagem = urlImagem; }
 }
