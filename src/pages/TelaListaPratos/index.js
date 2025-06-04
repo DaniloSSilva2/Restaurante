@@ -10,7 +10,7 @@ function TelaListaPratos() {
   useEffect(() => {
     const fetchPratos = async () => {
       try {
-        const response = await api.get('/pratos');
+        const response = await api.get('/usuarios');
         setPratos(response.data);
       } catch (error) {
         console.error('Erro ao buscar pratos:', error);
