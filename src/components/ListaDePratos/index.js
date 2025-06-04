@@ -1,12 +1,12 @@
 import React from 'react';
 import './styles.css';
 
-function ListaDePratos({ usuarios, carregando }) {
+function ListaDePratos({ pratos, carregando }) {
   if (carregando) {
     return <p>Carregando pratos...</p>;
   }
 
-  if (!usuarios || usuarios.length === 0) {
+  if (!pratos || pratos.length === 0) {
     return <p>Nenhum prato cadastrado.</p>;
   }
 
