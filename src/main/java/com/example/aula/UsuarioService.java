@@ -1,7 +1,7 @@
 package com.example.aula.service;
 
-import com.example.aula.model.Usuario;
-import com.example.aula.repository.UsuarioRepository;
+import com.example.aula.model.Prato;
+import com.example.aula.repository.PratoRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -10,41 +10,32 @@ import java.util.List;
 
 @Service
 @Validated
-public class UsuarioService {
-    private final UsuarioRepository usuarioRepository; 
+public class PratoService {
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    private final PratoRepository pratoRepository;
+
+    public PratoService(PratoRepository pratoRepository) {
+        this.pratoRepository = pratoRepository;
     }
 
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
+    public List<Prato> listarTodos() {
+        return pratoRepository.findAll();
     }
 
-    public Usuario salvar(@Valid Usuario usuario) {
-
-        return usuarioRepository.save(usuario);
+    public Prato salvar(@Valid Prato prato) {
+        return pratoRepository.save(prato);
     }
 
-    public Usuario atualizar(@Valid Usuario usuario) {
-        Usuario usuarioAtualizar = usuarioRepository.findById(usuario.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado."));
-
-        usuarioAtualizar.setNome(usuario.getNome());
-        usuarioAtualizar.setSexo(usuario.getSexo());
-        usuarioAtualizar.setIdade(usuario.getIdade());
-        usuarioAtualizar.setAltura(usuario.getAltura());
-        usuarioAtualizar.setPeso(usuario.getPeso());
-        usuarioAtualizar.setPosicao(usuario.getPosicao());
-        usuarioAtualizar.setNumeroCamisa(usuario.getNumeroCamisa());
-
-        return usuarioRepository.save(usuarioAtualizar);
+    public Prato atualizar(@Valid Prato prato) {
+        Prato existente = pratoRepository.findById(prato.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Prato não encontrado."));
+        return pratoRepository.save(prato);
     }
 
     public void excluir(Long id) {
-        Usuario usuarioExcluir = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // Pode ser uma exceção mais específica
-
-        usuarioRepository.deleteById(usuarioExcluir.getId());
+        if (!pratoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Prato não encontrado.");
+        }
+        pratoRepository.deleteById(id);
     }
 }
