@@ -23,6 +23,7 @@ public class Prato {
     private String disponibilidade;
 
     @NotBlank(message = "URL da imagem é obrigatória.")
+    @Column(length = 1000) // ou outro número adequado
     private String urlImagem;
 
     // Construtores
